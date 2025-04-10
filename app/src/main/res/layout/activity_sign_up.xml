@@ -57,7 +57,8 @@
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="370dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:background="@color/trans"/>
 
         <EditText
             android:id="@+id/signupEmail"
@@ -75,7 +76,8 @@
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="440dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:background="@color/trans"/>
 
         <EditText
             android:id="@+id/signupPassword"
@@ -93,7 +95,8 @@
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="510dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:background="@color/trans"/>
 
         <EditText
             android:id="@+id/signupConfirmPass"
@@ -111,7 +114,8 @@
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="580dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:background="@color/trans"/>
 
         <ImageButton
             android:id="@+id/signupRegbtn"
