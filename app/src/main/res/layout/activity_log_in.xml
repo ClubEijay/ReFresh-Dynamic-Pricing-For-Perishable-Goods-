@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LogIn">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/topci"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo"
+            android:layout_marginLeft="60dp"/>
+
+        <ImageButton
+            android:id="@+id/regSignUpBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/loginwhite"
+            android:background="@color/white"
+            android:layout_marginTop="299dp"
+            android:layout_marginLeft="25dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/loginblue"
+            android:background="@color/white"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="200dp"/>
+
+        <TextView
+            android:id="@+id/SignUptxtbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textColor="@color/maincolor"
+            android:fontFamily="@font/pmedium"
+            android:textSize="24sp"
+            android:layout_marginTop="307dp"
+            android:layout_marginLeft="70dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:fontFamily="@font/pmedium"
+            android:textSize="24sp"
+            android:layout_marginTop="307dp"
+            android:layout_marginLeft="240dp"/>
+
+        <EditText
+            android:id="@+id/signinEmail"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="400dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="58dp"
+            android:background="@drawable/rnd_textbox"
+            android:padding="10dp"
+            android:hint="Email" />
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="400dp"
+            android:src="@drawable/blackbordr" />
+
+        <EditText
+            android:id="@+id/signinPassword"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="470dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="58dp"
+            android:background="@drawable/rnd_textbox"
+            android:padding="10dp"
+            android:hint="Password" />
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="470dp"
+            android:src="@drawable/blackbordr" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password"
+            android:textColor="@color/maincolor"
+            android:layout_marginTop="530dp"
+            android:layout_marginLeft="55dp"/>
+
+        <ImageButton
+            android:id="@+id/signinbtnofficial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/siginbtn"
+            android:background="@color/white"
+            android:layout_marginTop="600dp"
+            android:layout_marginLeft="110dp"/>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/maincolor"
+    tools:context=".GetStartedActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="348dp"
+            android:src="@drawable/inspiredlogo"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get inspired"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:fontFamily="@font/pextrabold"
+            android:layout_marginTop="350dp"
+            android:layout_marginLeft="80sp"/>
+
+        <TextView
+            android:layout_width="362dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="430dp"
+            android:text="Start smart. Sell fresh. Reduce waste. Your journey to impact begins here"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginLeft="38dp"/>
+
+        <ImageButton
+            android:id="@+id/getstartedbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/getstartedbtn"
+            android:background="@color/maincolor"
+            android:layout_marginTop="600dp"
+            android:layout_marginLeft="80dp"/>
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/maincolor"
+    tools:context=".GetStartedActivity2">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_width="153dp"
+            android:layout_height="190dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="170dp"
+            android:src="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/GsignInBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signinbtn1"
+            android:background="@color/trans"
+            android:layout_marginTop="500dp"
+            android:layout_marginLeft="110dp"/>
+
+        <ImageButton
+            android:id="@+id/GsignUpBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signupbtn1"
+            android:background="@color/trans"
+            android:layout_marginTop="580dp"
+            android:layout_marginLeft="110dp"/>
+
+
+
+    </FrameLayout>
+
+</LinearLayout>
