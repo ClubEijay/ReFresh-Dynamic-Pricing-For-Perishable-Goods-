@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".SignUp">
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -122,11 +117,38 @@
             android:id="@+id/signupRegbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/signupbtnreg"
-            android:background="@color/white"
+            android:layout_marginLeft="140dp"
             android:layout_marginTop="660dp"
-            android:layout_marginLeft="140dp"/>
+            android:background="@color/white"
+            android:src="@drawable/signupbtnreg" />
+
+        <LinearLayout
+            android:id="@+id/googleSignUpLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="740dp"
+            android:layout_marginLeft="80dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/rnd_textbox"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/googlelogo" />
+
+            <TextView
+                android:id="@+id/googleSignUpText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up with Google"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
 
     </FrameLayout>
 
-</LinearLayout>
+</ScrollView>
