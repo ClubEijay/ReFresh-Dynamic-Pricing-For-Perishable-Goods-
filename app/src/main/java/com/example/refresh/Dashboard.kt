@@ -64,6 +64,8 @@ class Dashboard : Activity() {
 
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.nav_logout -> {
