@@ -23,9 +23,9 @@ class SignUp : Activity() {
 
        firebaseAuth = FirebaseAuth.getInstance()
 
-        // Configure Google Sign In
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // get this from google-services.json
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -37,7 +37,6 @@ class SignUp : Activity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        // Other input fields
         val name = findViewById<EditText>(R.id.signupName)
         val email = findViewById<EditText>(R.id.signupEmail)
         val password = findViewById<EditText>(R.id.signupPassword)
@@ -71,11 +70,17 @@ class SignUp : Activity() {
                 return@setOnClickListener
             }
 
+
+            val sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("email", emailText)
+            editor.putString("password", passText)
+            editor.putString("name", nameText)
+            editor.apply()
+
             Toast.makeText(this, "Your account is being registered", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this@SignUp, LogIn::class.java)
-            intent.putExtra("email", emailText)
-            intent.putExtra("password", passText)
             startActivity(intent)
             finish()
         }
@@ -108,16 +113,14 @@ class SignUp : Activity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Firebase sign-in was successful
                     val user = firebaseAuth.currentUser
 
-                    // Check if it's a new user or returning user
                     if (task.result?.additionalUserInfo?.isNewUser == true) {
-                        // New user
+
                         Toast.makeText(this, "Welcome, ${user?.displayName}!", Toast.LENGTH_SHORT)
                             .show()
                     } else {
-                        // Returning user
+
                         Toast.makeText(
                             this,
                             "Welcome back, ${user?.displayName}!",
@@ -125,11 +128,14 @@ class SignUp : Activity() {
                         ).show()
                     }
 
-                    // Proceed to the Dashboard (main screen)
-                    startActivity(Intent(this, Dashboard::class.java))
-                    finish()  // Close SignUp Activity
+
+                    val intent = Intent(this, Dashboard::class.java)
+                    intent.putExtra("USERNAME", user?.displayName)
+                    intent.putExtra("EMAIL", user?.email)
+                    startActivity(intent)
+                    finish()
                 } else {
-                    // If sign-in fails, show a failure message
+
                     Toast.makeText(
                         this,
                         "Authentication failed. Please try again.",

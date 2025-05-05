@@ -11,13 +11,19 @@ import android.widget.Toast
 class LogIn : Activity() {
     private var registeredEmail: String? = null
     private var registeredPassword: String? = null
+    private var registeredName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
 
-        registeredEmail = intent.getStringExtra("email")
-        registeredPassword = intent.getStringExtra("password")
+
+        val sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE)
+        registeredEmail = sharedPreferences.getString("email", null)
+        registeredPassword = sharedPreferences.getString("password", null)
+        registeredName = sharedPreferences.getString("name", null)
+
+
 
         val emailInput = findViewById<EditText>(R.id.signinEmail)
         val passwordInput = findViewById<EditText>(R.id.signinPassword)
@@ -29,7 +35,11 @@ class LogIn : Activity() {
 
             if (inputEmail == registeredEmail && inputPassword == registeredPassword) {
                 Toast.makeText(this, "Welcome to your account", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@LogIn, Dashboard::class.java))
+
+                val dashboardIntent = Intent(this@LogIn, Dashboard::class.java)
+                dashboardIntent.putExtra("USERNAME", registeredName)
+                dashboardIntent.putExtra("EMAIL", registeredEmail)
+                startActivity(dashboardIntent)
                 finish()
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
