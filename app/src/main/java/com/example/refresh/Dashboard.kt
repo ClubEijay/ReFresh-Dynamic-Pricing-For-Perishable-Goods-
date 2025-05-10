@@ -3,6 +3,7 @@ package com.example.refresh
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.Toast
@@ -11,15 +12,30 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import android.widget.TextView
 import android.widget.ImageView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+//import com.google.android.gms.auth.api.signin.GoogleSignIn
+//import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.bumptech.glide.Glide
+import com.example.refresh.util.UserSessionManager
+
 class Dashboard : Activity() {
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var sessionManager: UserSessionManager
+    private val TAG = "DashboardActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        // Initialize session manager
+        sessionManager = UserSessionManager(this)
+
+        // Check if user is logged in, if not redirect to login
+        if (!sessionManager.isLoggedIn()) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, LogIn::class.java))
+            finish()
+            return
+        }
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navBtn: ImageButton = findViewById(R.id.navbtn)
@@ -34,27 +50,17 @@ class Dashboard : Activity() {
         val emailTextView: TextView = headerView.findViewById(R.id.profile_email)
         val profileImageView: ImageView = headerView.findViewById(R.id.profile_image)
 
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+        // Get user data from session
+        val userData = sessionManager.getUserDetails()
+        val name = userData[UserSessionManager.KEY_NAME]
+        val email = userData[UserSessionManager.KEY_EMAIL]
 
-        if (account != null) {
+        Log.d(TAG, "Setting profile data: $name, $email")
 
-            nameTextView.text = account.displayName
-            emailTextView.text = account.email
-            val photoUrl = account.photoUrl
-            if (photoUrl != null) {
-                Glide.with(this)
-                    .load(photoUrl)
-                    .into(profileImageView)
-            }
-        } else {
-
-            val name = intent.getStringExtra("USERNAME")
-            val email = intent.getStringExtra("EMAIL")
-
-            nameTextView.text = name ?: "Guest User"
-            emailTextView.text = email ?: "guest@example.com"
-            profileImageView.setImageResource(R.drawable.profile_img)
-        }
+        // Update UI with user data from session
+        nameTextView.text = name
+        emailTextView.text = email
+        profileImageView.setImageResource(R.drawable.profile_img)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -70,7 +76,15 @@ class Dashboard : Activity() {
                     startActivity(intent)
                 }
                 R.id.nav_logout -> {
+                    // Clear session data
+                    sessionManager.logoutUser()
+
                     Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+
+                    // Return to login screen
+                    val intent = Intent(this, LogIn::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                     finish()
                 }
             }
