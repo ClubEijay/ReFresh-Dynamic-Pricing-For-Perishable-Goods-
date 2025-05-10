@@ -5,4 +5,5 @@
     <color name="maincolor">#0B192C</color>
     <color name="mainbg">#E4E2F6</color>
     <color name="trans">#00FFFFFF</color>
+    <color name="lightblue">#EBECED</color>
 </resources>
