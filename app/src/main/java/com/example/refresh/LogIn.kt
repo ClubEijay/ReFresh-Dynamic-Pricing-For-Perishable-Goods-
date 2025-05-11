@@ -3,7 +3,10 @@ package com.example.refresh
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -43,6 +46,20 @@ class LogIn : Activity() {
         val emailInput = findViewById<EditText>(R.id.signinEmail)
         val passwordInput = findViewById<EditText>(R.id.signinPassword)
         val signInBtn = findViewById<ImageButton>(R.id.signinbtnofficial)
+        val showPassword = findViewById<CheckBox>(R.id.signinShowPassword)
+
+        // Set up password visibility toggle
+        showPassword.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Show password
+                passwordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                // Hide password
+                passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+            // Maintain cursor position
+            passwordInput.setSelection(passwordInput.text.length)
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:5000/") // Emulator access to localhost
