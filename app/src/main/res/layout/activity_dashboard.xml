@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
-    <!-- Main Content -->
+
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -16,18 +16,15 @@
         android:background="@color/mainbg">
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="411dp"
-                android:layout_height="942dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/maincolor"
-                android:orientation="vertical" >
+                android:orientation="vertical" />
 
-
-                <
-            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/navbtn"
@@ -35,40 +32,46 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/menu"
                 android:background="@color/trans"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="5dp" />
+
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/notifications"
                 android:background="@color/trans"
-                android:layout_marginLeft="370dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp" />
+
 
             <ImageView
-            android:layout_width="181dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/wallmart_logo"
-            android:layout_marginHorizontal="50dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:layout_marginHorizontal="50dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You Are At:"
+                android:text="Products Inventory Management"
                 android:fontFamily="@font/pbold"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="70dp" />
+                android:layout_marginStart="70dp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/invan"
                 android:layout_marginTop="55dp"
-                android:layout_marginLeft="40dp" />
+                android:layout_marginStart="40dp" />
+
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -76,33 +79,40 @@
                 android:src="@drawable/btnview"
                 android:background="@color/trans"
                 android:layout_marginTop="200dp"
-                android:layout_marginLeft="290dp" />
+                android:layout_marginStart="290dp" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/apc"
-                android:background="@color/trans"
-                android:layout_marginTop="250dp"
-                android:layout_marginLeft="38dp" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cid"
-                android:background="@color/trans"
+                android:orientation="horizontal"
                 android:layout_marginTop="250dp"
-                android:layout_marginLeft="220dp" />
+                android:gravity="center_horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/apc"
+                    android:background="@color/trans"
+                    android:layout_marginEnd="20dp" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cid"
+                    android:background="@color/trans" />
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sales and Reports"
                 android:fontFamily="@font/pbold"
-                android:textColor="@color/maincolor"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_marginTop="470dp"
-                android:layout_marginLeft="30dp" />
+                android:layout_marginStart="30dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -110,14 +120,16 @@
                 android:src="@drawable/blueview"
                 android:background="@color/trans"
                 android:layout_marginTop="470dp"
-                android:layout_marginLeft="290dp" />
+                android:layout_marginStart="290dp" />
+
 
             <LinearLayout
-                android:layout_width="411dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="685dp"
+                android:layout_gravity="bottom"
                 android:background="@color/white"
                 android:orientation="vertical" />
+
         </FrameLayout>
     </LinearLayout>
 
