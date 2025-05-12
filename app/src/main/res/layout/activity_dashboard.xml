@@ -21,9 +21,13 @@
 
             <LinearLayout
                 android:layout_width="411dp"
-                android:layout_height="330dp"
+                android:layout_height="942dp"
                 android:background="@color/maincolor"
-                android:orientation="vertical" />
+                android:orientation="vertical" >
+
+
+                <
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/navbtn"
@@ -42,10 +46,17 @@
                 android:layout_marginLeft="370dp"
                 android:layout_marginTop="5dp" />
 
+            <ImageView
+            android:layout_width="181dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/wallmart_logo"
+            android:layout_marginHorizontal="50dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Products Inventory Management"
+                android:text="You Are At:"
                 android:fontFamily="@font/pbold"
                 android:textColor="@color/white"
                 android:textSize="16sp"

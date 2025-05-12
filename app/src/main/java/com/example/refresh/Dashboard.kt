@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -36,6 +37,9 @@ class Dashboard : Activity() {
             finish()
             return
         }
+
+
+        //Push Test Push Test!
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navBtn: ImageButton = findViewById(R.id.navbtn)
@@ -72,7 +76,10 @@ class Dashboard : Activity() {
                 }
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+
                     val intent = Intent(this, SettingsActivity::class.java)
+
+
                     startActivity(intent)
                 }
                 R.id.nav_logout -> {

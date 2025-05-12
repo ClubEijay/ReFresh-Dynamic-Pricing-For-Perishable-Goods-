@@ -9,9 +9,10 @@
         android:background="@color/white">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Logo and Top Image -->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -21,9 +22,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/logo"
-                android:layout_marginLeft="60dp" />
+                android:layout_marginLeft="60dp"
+                android:src="@drawable/logo" />
 
+            <!-- Design Buttons -->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,12 +43,12 @@
                 android:layout_marginTop="298dp"
                 android:layout_marginLeft="200dp" />
 
+            <!-- Name -->
             <EditText
                 android:id="@+id/signupName"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="370dp"
-                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="58dp"
                 android:background="@drawable/rnd_textbox"
                 android:padding="10dp"
@@ -55,17 +57,17 @@
             <ImageView
                 android:layout_width="320dp"
                 android:layout_height="53dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="370dp"
+                android:layout_marginLeft="40dp"
                 android:src="@drawable/blackbordr"
                 android:background="@color/trans" />
 
+            <!-- Email -->
             <EditText
                 android:id="@+id/signupEmail"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="440dp"
-                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="58dp"
                 android:background="@drawable/rnd_textbox"
                 android:padding="10dp"
@@ -74,18 +76,17 @@
             <ImageView
                 android:layout_width="320dp"
                 android:layout_height="53dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="440dp"
+                android:layout_marginLeft="40dp"
                 android:src="@drawable/blackbordr"
                 android:background="@color/trans" />
 
-
+            <!-- Password -->
             <EditText
                 android:id="@+id/signupPassword"
                 android:layout_width="270dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="510dp"
-                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="58dp"
                 android:background="@drawable/rnd_textbox"
                 android:padding="10dp"
@@ -103,17 +104,17 @@
             <ImageView
                 android:layout_width="320dp"
                 android:layout_height="53dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="510dp"
-                android:background="@color/trans"
-                android:src="@drawable/blackbordr" />
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/blackbordr"
+                android:background="@color/trans" />
 
+            <!-- Confirm Password -->
             <EditText
                 android:id="@+id/signupConfirmPass"
                 android:layout_width="270dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="580dp"
-                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="58dp"
                 android:background="@drawable/rnd_textbox"
                 android:padding="10dp"
@@ -128,6 +129,7 @@
                 android:layout_marginLeft="310dp"
                 android:button="@drawable/password_toggle_selector" />
 
+            <!-- Password Strength Indicator -->
             <TextView
                 android:id="@+id/passwordStrengthText"
                 android:layout_width="wrap_content"
@@ -139,19 +141,38 @@
             <ImageView
                 android:layout_width="320dp"
                 android:layout_height="53dp"
-                android:layout_marginLeft="40dp"
                 android:layout_marginTop="580dp"
+                android:layout_marginLeft="40dp"
                 android:src="@drawable/blackbordr"
                 android:background="@color/trans" />
 
+            <!-- Register Button -->
             <ImageButton
                 android:id="@+id/signupRegbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
                 android:layout_marginTop="660dp"
+                android:layout_marginLeft="140dp"
                 android:background="@color/white"
                 android:src="@drawable/signupbtnreg" />
+
+            <!-- Google SignUp Layout -->
+            <LinearLayout
+                android:id="@+id/googleSignUpLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="740dp"
+                android:layout_marginLeft="80dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/topci" />
+            </LinearLayout>
         </FrameLayout>
     </ScrollView>
 </FrameLayout>
