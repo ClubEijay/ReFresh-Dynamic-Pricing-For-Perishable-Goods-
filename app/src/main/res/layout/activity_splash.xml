@@ -15,26 +15,11 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="85dp"
-            android:layout_marginLeft="200dp"
-            android:layout_marginBottom="760dp"
-            android:src="@drawable/sideside" />
-
-        <ImageView
             android:layout_width="153dp"
             android:layout_height="190dp"
-            android:layout_marginLeft="140dp"
+            android:layout_marginLeft="130dp"
             android:layout_marginTop="270dp"
-            android:src="@drawable/logo" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/belowline"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="600dp"/>
-
+            android:src="@drawable/logo2" />
 
     </FrameLayout>
 

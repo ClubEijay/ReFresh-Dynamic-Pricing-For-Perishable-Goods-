@@ -1,132 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".SignUp">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/topci"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/logo"
-            android:layout_marginLeft="60dp"/>
+            <!-- Logo and Top Image -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/topci" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/supblue"
-            android:background="@color/trans"
-            android:layout_marginTop="299dp"
-            android:layout_marginLeft="39dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                android:src="@drawable/logo" />
 
-        <ImageButton
-            android:id="@+id/regSignBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/supwhite"
-            android:background="@color/trans"
-            android:layout_marginTop="298dp"
-            android:layout_marginLeft="200dp"/>
+            <!-- Design Buttons -->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/supblue"
+                android:background="@color/trans"
+                android:layout_marginTop="299dp"
+                android:layout_marginLeft="39dp" />
 
-        <EditText
-            android:id="@+id/signupName"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="370dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="58dp"
-            android:background="@drawable/rnd_textbox"
-            android:padding="10dp"
-            android:hint="Name" />
+            <ImageButton
+                android:id="@+id/regSignBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/supwhite"
+                android:background="@color/trans"
+                android:layout_marginTop="298dp"
+                android:layout_marginLeft="200dp" />
 
-        <ImageView
-            android:layout_width="320dp"
-            android:layout_height="53dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="370dp"
-            android:src="@drawable/blackbordr"
-            android:background="@color/trans"/>
+            <!-- Name -->
+            <EditText
+                android:id="@+id/signupName"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="370dp"
+                android:layout_marginLeft="58dp"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp"
+                android:hint="Name" />
 
-        <EditText
-            android:id="@+id/signupEmail"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="440dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="58dp"
-            android:background="@drawable/rnd_textbox"
-            android:padding="10dp"
-            android:hint="Email" />
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="370dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/blackbordr"
+                android:background="@color/trans" />
 
-        <ImageView
-            android:layout_width="320dp"
-            android:layout_height="53dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="440dp"
-            android:src="@drawable/blackbordr"
-            android:background="@color/trans"/>
+            <!-- Email -->
+            <EditText
+                android:id="@+id/signupEmail"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="440dp"
+                android:layout_marginLeft="58dp"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp"
+                android:hint="Email" />
 
-        <EditText
-            android:id="@+id/signupPassword"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="510dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="58dp"
-            android:background="@drawable/rnd_textbox"
-            android:padding="10dp"
-            android:hint="Password" />
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="440dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/blackbordr"
+                android:background="@color/trans" />
 
-        <ImageView
-            android:layout_width="320dp"
-            android:layout_height="53dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="510dp"
-            android:src="@drawable/blackbordr"
-            android:background="@color/trans"/>
+            <!-- Password -->
+            <EditText
+                android:id="@+id/signupPassword"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="510dp"
+                android:layout_marginLeft="58dp"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp"
+                android:hint="Password"
+                android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/signupConfirmPass"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="580dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="58dp"
-            android:background="@drawable/rnd_textbox"
-            android:padding="10dp"
-            android:hint="Confirm Password" />
+            <CheckBox
+                android:id="@+id/signupShowPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="510dp"
+                android:layout_marginLeft="310dp"
+                android:button="@drawable/password_toggle_selector" />
 
-        <ImageView
-            android:layout_width="320dp"
-            android:layout_height="53dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="580dp"
-            android:src="@drawable/blackbordr"
-            android:background="@color/trans"/>
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="510dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/blackbordr"
+                android:background="@color/trans" />
 
-        <ImageButton
-            android:id="@+id/signupRegbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/signupbtnreg"
-            android:background="@color/white"
-            android:layout_marginTop="660dp"
-            android:layout_marginLeft="140dp"/>
+            <!-- Confirm Password -->
+            <EditText
+                android:id="@+id/signupConfirmPass"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="580dp"
+                android:layout_marginLeft="58dp"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
 
-    </FrameLayout>
+            <CheckBox
+                android:id="@+id/signupShowConfirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="580dp"
+                android:layout_marginLeft="310dp"
+                android:button="@drawable/password_toggle_selector" />
 
-</LinearLayout>
+            <!-- Password Strength Indicator -->
+            <TextView
+                android:id="@+id/passwordStrengthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="545dp"
+                android:layout_marginLeft="58dp"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="580dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/blackbordr"
+                android:background="@color/trans" />
+
+            <!-- Register Button -->
+            <ImageButton
+                android:id="@+id/signupRegbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="660dp"
+                android:layout_marginLeft="140dp"
+                android:background="@color/white"
+                android:src="@drawable/signupbtnreg" />
+
+            <!-- Google SignUp Layout -->
+            <LinearLayout
+                android:id="@+id/googleSignUpLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="740dp"
+                android:layout_marginLeft="80dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rnd_textbox"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/topci" />
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</FrameLayout>

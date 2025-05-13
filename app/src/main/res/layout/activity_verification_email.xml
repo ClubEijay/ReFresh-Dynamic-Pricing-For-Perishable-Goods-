@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".VerificationEmail">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Logo and Top Image -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/topci" />
+
+        <ImageView
+            android:layout_width="184dp"
+            android:layout_height="185dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
+
+
+        <TextView
+            android:id="@+id/passwordStrengthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="545dp"
+            android:layout_marginLeft="58dp"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/forgotbtn"
+            android:background="@color/trans"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="35dp"/>
+
+        <TextView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="365dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/pmedium"
+            android:text="Please enter your valid email so we can
+ send your 4-Digit verification code. "
+            android:textColor="@color/maincolor"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="440dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/blackbordr" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="447dp"
+            android:layout_marginLeft="58dp"
+            android:background="@drawable/rnd_textbox"
+            android:padding="10dp"
+            android:hint="Email" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sendbtn"
+            android:background="@color/trans"
+            android:layout_marginTop="600dp"
+            android:layout_marginLeft="120dp"/>
+
+
+        <LinearLayout
+            android:id="@+id/googleSignUpLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="740dp"
+            android:layout_marginLeft="80dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/rnd_textbox"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/topci" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>
