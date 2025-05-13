@@ -21,9 +21,6 @@
             android:name=".Notifcations"
             android:exported="false" />
         <activity
-            android:name=".GoogleSignInActivity"
-            android:exported="false" />
-        <activity
             android:name=".EditProfile"
             android:exported="false" />
         <activity
