@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ReFresh</string>
+    <string name="default_web_client_id">150537376509-63bbakj0988k4gffkq6r1224qm72bkai.apps.googleusercontent.com</string>
+
 </resources>

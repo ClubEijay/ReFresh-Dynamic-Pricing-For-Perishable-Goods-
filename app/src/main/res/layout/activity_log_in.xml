@@ -79,12 +79,15 @@
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="400dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:focusable="false"
+            android:clickable="false"/>
 
         <EditText
             android:id="@+id/signinPassword"
             android:layout_width="300dp"
             android:layout_height="50dp"
+            android:password="true"
             android:layout_marginTop="470dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="58dp"
@@ -92,12 +95,22 @@
             android:padding="10dp"
             android:hint="Password" />
 
+        <CheckBox
+            android:id="@+id/signinShowPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="470dp"
+            android:layout_marginLeft="310dp"
+            android:button="@drawable/password_toggle_selector" />
+
         <ImageView
             android:layout_width="320dp"
             android:layout_height="53dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="470dp"
-            android:src="@drawable/blackbordr" />
+            android:src="@drawable/blackbordr"
+            android:focusable="false"
+            android:clickable="false"/>
 
         <TextView
             android:layout_width="wrap_content"
