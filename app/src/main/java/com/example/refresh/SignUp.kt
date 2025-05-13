@@ -3,11 +3,24 @@ package com.example.refresh
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.*
+import android.util.Log
+import com.example.refresh.model.User
+import com.example.refresh.network.ApiService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class SignUp : Activity() {
+
+    private val TAG = "SignUpActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -17,6 +30,43 @@ class SignUp : Activity() {
         val password = findViewById<EditText>(R.id.signupPassword)
         val confirmPass = findViewById<EditText>(R.id.signupConfirmPass)
         val registerBtn = findViewById<ImageButton>(R.id.signupRegbtn)
+        val showPassword = findViewById<CheckBox>(R.id.signupShowPassword)
+        val showConfirmPassword = findViewById<CheckBox>(R.id.signupShowConfirmPassword)
+        val passwordStrengthText = findViewById<TextView>(R.id.passwordStrengthText)
+
+
+        // Set up password visibility toggle
+        showPassword.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Show password
+                password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                // Hide password
+                password.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+            // Maintain cursor position
+            password.setSelection(password.text.length)
+        }
+
+        // Set up confirm password visibility toggle
+        showConfirmPassword.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Show password
+                confirmPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                // Hide password
+                confirmPass.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+            // Maintain cursor position
+            confirmPass.setSelection(confirmPass.text.length)
+        }
+        // Retrofit instance
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:5000/")  // Use this if running Android emulator
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(ApiService::class.java)
 
         registerBtn.setOnClickListener {
             val nameText = name.text.toString().trim()
@@ -24,24 +74,8 @@ class SignUp : Activity() {
             val passText = password.text.toString().trim()
             val confirmText = confirmPass.text.toString().trim()
 
-            // Basic validation
-            if (nameText.isEmpty()) {
-                name.error = "Name is required"
-                return@setOnClickListener
-            }
-
-            if (emailText.isEmpty()) {
-                email.error = "Email is required"
-                return@setOnClickListener
-            }
-
-            if (passText.isEmpty()) {
-                password.error = "Password is required"
-                return@setOnClickListener
-            }
-
-            if (confirmText.isEmpty()) {
-                confirmPass.error = "Please confirm your password"
+            if (nameText.isEmpty() || emailText.isEmpty() || passText.isEmpty() || confirmText.isEmpty()) {
+                Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -50,19 +84,36 @@ class SignUp : Activity() {
                 return@setOnClickListener
             }
 
-            // Success!
-            Toast.makeText(this, "Your account is being registered", Toast.LENGTH_SHORT).show()
+            registerBtn.isEnabled = false
 
-            val intent = Intent(this@SignUp, LogIn::class.java)
-            intent.putExtra("email", emailText)
-            intent.putExtra("password", passText)
-            startActivity(intent)
-            finish()
+            val user = User(nameText, emailText, passText)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = apiService.signUp(user)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(this@SignUp, "Registration successful!", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@SignUp, LogIn::class.java))
+                            finish()
+                        } else {
+                            val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                            Toast.makeText(this@SignUp, "Error: $errorMessage", Toast.LENGTH_LONG).show()
+                            registerBtn.isEnabled = true
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Sign-up failed", e)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@SignUp, "Network error: ${e.message}", Toast.LENGTH_LONG).show()
+                        registerBtn.isEnabled = true
+                    }
+                }
+            }
         }
 
-        val logInBtn = findViewById<ImageButton>(R.id.regSignBtn2)
-        logInBtn.setOnClickListener {
-            startActivity(Intent(this@SignUp, LogIn::class.java))
+        findViewById<ImageButton>(R.id.regSignBtn2).setOnClickListener {
+            startActivity(Intent(this, LogIn::class.java))
         }
     }
 }

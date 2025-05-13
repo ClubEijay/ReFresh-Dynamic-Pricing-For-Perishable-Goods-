@@ -20,15 +20,28 @@
             android:background="@color/maincolor"
             android:orientation="vertical" />
 
+        <!-- Circle profile image above name -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settings_profile_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="160dp"
+            android:src="@drawable/profile_img"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/maincolor"/>
+
+        <!-- Dynamic user name -->
         <TextView
+            android:id="@+id/settings_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Joan Joy Diocampo"
+            android:text="User Name"
             android:textColor="@color/maincolor"
             android:fontFamily="@font/pbold"
             android:textSize="20sp"
             android:layout_marginTop="198dp"
-            android:layout_marginLeft="100dp"/>
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="wrap_content"
