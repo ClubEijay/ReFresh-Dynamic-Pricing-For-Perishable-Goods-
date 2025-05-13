@@ -67,6 +67,7 @@
             android:id="@+id/signinEmail"
             android:layout_width="300dp"
             android:layout_height="50dp"
+            android:textColor="@color/black"
             android:layout_marginTop="400dp"
             android:textColor="@color/black"
             android:layout_centerHorizontal="true"
