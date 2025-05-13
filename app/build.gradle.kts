@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.google.gms.google-services")
+    //id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.kapt")
 }
 
@@ -28,14 +28,30 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true  // Enable desugaring properly
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    packaging {
+        resources {
+            excludes += listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/LICENSE-notice.md",
+                "META-INF/native-image/**"
+            )
+        }
     }
 }
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -47,27 +63,42 @@ dependencies {
 
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:30.0.1"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-analytics")
+    //implementation(platform("com.google.firebase:firebase-bom:30.0.1"))
+    //implementation("com.google.firebase:firebase-auth")
+    //implementation("com.google.firebase:firebase-auth-ktx")
+    //implementation("com.google.firebase:firebase-analytics")
 
-    // Google Sign-In (this is what you're missing!)
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    // Google Sign-In
+    //implementation("com.google.android.gms:play-services-auth:20.7.0")
 
-    // Identity (optional, good if you’re using Google Identity Services too)
-    implementation("androidx.credentials:credentials:1.5.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    // Identity
+    //implementation("androidx.credentials:credentials:1.5.0")
+    //implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
+    //implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
     // Glide for image loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
+    // MongoDB
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine")
+    implementation(platform("org.mongodb:mongodb-driver-bom:5.4.0"))
+    implementation("org.mongodb:bson-kotlinx:5.4.0")
+
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // CircleImageView library
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Add this line for proper desugaring
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.3")
 }
 
 apply(plugin = "com.google.gms.google-services")

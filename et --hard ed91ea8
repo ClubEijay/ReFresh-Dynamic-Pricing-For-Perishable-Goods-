@@ -1,0 +1,22 @@
+[33m95ce377[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull origin main: Fast-forward
+[33med91ea8[m HEAD@{1}: checkout: moving from kenji_branch to main
+[33m673c7b2[m[33m ([m[1;32mkenji_branch[m[33m)[m HEAD@{2}: commit (merge): weewo
+[33m5520080[m[33m ([m[1;31morigin/kenji_branch[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33m5520080[m[33m ([m[1;31morigin/kenji_branch[m[33m)[m HEAD@{4}: checkout: moving from kenji_branch to kenji_branch
+[33m5520080[m[33m ([m[1;31morigin/kenji_branch[m[33m)[m HEAD@{5}: checkout: moving from kenji_branch to kenji_branch
+[33m5520080[m[33m ([m[1;31morigin/kenji_branch[m[33m)[m HEAD@{6}: commit: Connected to MongoDB
+[33m8398705[m[33m ([m[1;32mbackup_before_merge_20250501_1523[m[33m)[m HEAD@{7}: merge origin/Joy_Branch-new: updating HEAD
+[33m8398705[m[33m ([m[1;32mbackup_before_merge_20250501_1523[m[33m)[m HEAD@{8}: checkout: moving from backup_before_merge_20250501_1523 to kenji_branch
+[33m8398705[m[33m ([m[1;32mbackup_before_merge_20250501_1523[m[33m)[m HEAD@{9}: checkout: moving from kenji_branch to backup_before_merge_20250501_1523
+[33m8398705[m[33m ([m[1;32mbackup_before_merge_20250501_1523[m[33m)[m HEAD@{10}: checkout: moving from kenji_branch to kenji_branch
+[33m8398705[m[33m ([m[1;32mbackup_before_merge_20250501_1523[m[33m)[m HEAD@{11}: commit: dynamic profile information depending on sign up
+[33m36f9106[m HEAD@{12}: commit: redirect to settings from nav drawer
+[33m9dc5517[m HEAD@{13}: checkout: moving from kenji_branch to kenji_branch
+[33m9dc5517[m HEAD@{14}: commit: added navigation drawer
+[33med91ea8[m HEAD@{15}: checkout: moving from main to kenji_branch
+[33med91ea8[m HEAD@{16}: commit: added navigation drawer
+[33m8efc7ba[m HEAD@{17}: commit: Change Sample
+[33m272187e[m HEAD@{18}: commit: Sample 1
+[33m08d424a[m HEAD@{19}: commit: Change Sample
+[33m350db4c[m HEAD@{20}: commit: Sample
+[33m58d2a4d[m HEAD@{21}: clone: from https://github.com/ClubEijay/ReFresh-Dynamic-Pricing-For-Perishable-Goods-.git
