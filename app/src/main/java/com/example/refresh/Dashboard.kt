@@ -31,6 +31,14 @@ class Dashboard : Activity() {
         // 👉 Set up Navigation Drawer open behavior
         navBtn.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
+
+            val profile_name = findViewById<TextView>(R.id.profile_name)
+
+            intent?.let {
+                it.getStringExtra("fullname")?.let{fullname ->
+                    profile_name.setText("Welcome $fullname! ")
+                }
+            }
         }
 
         // 👉 Populate the header with Google account info

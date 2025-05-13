@@ -22,6 +22,7 @@ class LogIn : Activity() {
         val emailInput = findViewById<EditText>(R.id.signinEmail)
         val passwordInput = findViewById<EditText>(R.id.signinPassword)
         val signInBtn = findViewById<ImageButton>(R.id.signinbtnofficial)
+        var fullname = ""
 
         intent?.let{
             it.getStringExtra("email")?.let{ username ->
@@ -30,6 +31,10 @@ class LogIn : Activity() {
             it.getStringExtra("password")?.let{ password ->
                 passwordInput.setText(password)
             }
+            it.getStringExtra("fullname")?.let{ fname ->
+                fullname = fname
+            }
+
         }
         signInBtn.setOnClickListener {
             val inputEmail = emailInput.text.toString().trim()
@@ -37,7 +42,12 @@ class LogIn : Activity() {
 
             if (inputEmail == registeredEmail && inputPassword == registeredPassword) {
                 Toast.makeText(this, "Welcome to your account", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@LogIn, Dashboard::class.java))
+                startActivity(Intent(this@LogIn, Dashboard::class.java).apply{
+                    putExtra("username", emailInput.text.toString())
+                    putExtra("password", passwordInput.text.toString())
+                    putExtra("fullname", fullname)
+                })
+
                 finish()
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()

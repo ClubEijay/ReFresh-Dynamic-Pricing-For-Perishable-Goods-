@@ -76,6 +76,7 @@ class SignUp : Activity() {
             val intent = Intent(this@SignUp, LogIn::class.java)
             intent.putExtra("email", emailText)
             intent.putExtra("password", passText)
+            intent.putExtra("name", nameText)
             startActivity(intent)
             finish()
         }
