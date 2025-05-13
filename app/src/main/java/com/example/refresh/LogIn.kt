@@ -23,6 +23,14 @@ class LogIn : Activity() {
         val passwordInput = findViewById<EditText>(R.id.signinPassword)
         val signInBtn = findViewById<ImageButton>(R.id.signinbtnofficial)
 
+        intent?.let{
+            it.getStringExtra("email")?.let{ username ->
+                emailInput.setText(username)
+            }
+            it.getStringExtra("password")?.let{ password ->
+                passwordInput.setText(password)
+            }
+        }
         signInBtn.setOnClickListener {
             val inputEmail = emailInput.text.toString().trim()
             val inputPassword = passwordInput.text.toString().trim()
