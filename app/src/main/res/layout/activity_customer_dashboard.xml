@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerDashboard">
+
+    <!-- Main Content Area -->
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/mainbg">
+
+        <!-- Top Bar with Nav and Search Buttons -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/maincolor"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/navbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu"
+                android:background="@color/trans"
+                android:layout_alignParentStart="true"
+                android:contentDescription="Menu" />
+
+            <ImageButton
+                android:id="@+id/search_btn"
+                android:layout_width="30dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:background="@color/trans"
+                android:contentDescription="Search"
+                android:src="@drawable/search" />
+        </RelativeLayout>
+
+        <!-- Welcome Message -->
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Refresh Market"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:padding="16dp"
+            android:background="@color/maincolor" />
+
+        <!-- Content Area with ScrollView -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Aisle 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Aisle 1 - Fresh Produce"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:background="@color/blue" />
+
+                <LinearLayout
+                    android:id="@+id/aisle1_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp" />
+
+                <!-- Aisle 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Aisle 2 - Groceries"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:background="@color/blue" />
+
+                <LinearLayout
+                    android:id="@+id/aisle2_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Bottom Navigation Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@color/maincolor">
+
+            <ImageButton
+                android:id="@+id/home_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/home"
+                android:background="@color/trans"
+                android:contentDescription="Home" />
+
+            <ImageButton
+                android:id="@+id/cart_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cart"
+                android:background="@color/trans"
+                android:contentDescription="Cart" />
+
+            <ImageButton
+                android:id="@+id/favorites_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/favorites"
+                android:background="@color/trans"
+                android:contentDescription="Favorites" />
+
+            <ImageButton
+                android:id="@+id/account_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/account"
+                android:background="@color/trans"
+                android:contentDescription="Account" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:headerLayout="@layout/nav_drawer"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

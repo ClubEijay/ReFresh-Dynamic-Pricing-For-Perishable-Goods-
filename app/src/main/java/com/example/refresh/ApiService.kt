@@ -1,15 +1,18 @@
 package com.example.refresh.network
 
+import com.example.refresh.ProductsDebugResponse
 import com.example.refresh.model.LoginRequest
 import com.example.refresh.model.LoginResponse
 import com.example.refresh.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -25,8 +28,12 @@ interface ApiService {
     @GET("/products/{email}")
     suspend fun getUserProducts(@Path(value = "email", encoded = true) email: String): Response<List<Product>>
 
-    //@GET("/products")
-    //suspend fun getUserProductsByQuery(@Query("email") email: String): Response<List<Product>>
+    @GET("/products")
+    suspend fun getAllProducts(@Query("email") email: String = ""): Response<List<Product>>
+
+   // Alternative - use debug endpoint for all products
+    @GET("/debug/products")
+    suspend fun getAllProductsDebug(): Response<ProductsDebugResponse>
     @PUT("update-profile")
     suspend fun updateProfile(@Body updateData: Map<String, String>): Response<Map<String, Any>>
 
@@ -35,6 +42,9 @@ interface ApiService {
 
     @PUT("/update-product/{productId}")
     suspend fun updateProduct(@Path("productId") productId: String, @Body updatedProduct: Product): Response<Map<String, String>>
+
+    @DELETE("/delete-product/{productId}")
+    suspend fun deleteProduct(@Path("productId") productId: String): Response<Map<String, String>>
 
 
 }

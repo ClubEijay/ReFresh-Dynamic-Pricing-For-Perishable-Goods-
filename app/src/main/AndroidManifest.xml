@@ -53,6 +53,9 @@
             android:name=".ChangePassword"
             android:exported="false" />
         <activity
+            android:name=".CustomerDashboard"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>

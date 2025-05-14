@@ -20,6 +20,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LogIn : Activity() {
 
     private val TAG = "LogInActivity"
+    // Hardcoded credentials for quick login
+    private val HARDCODED_EMAIL = "test@example.com"
+    private val HARDCODED_PASSWORD = "password123"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,12 +92,9 @@ class LogIn : Activity() {
                             val intent = Intent(this@LogIn, Dashboard::class.java)
                             startActivity(intent)
                             finish() // This will close the Login activity
-                        } else {
-                            Toast.makeText(
-                                this@LogIn,
-                                "Login failed: Invalid credentials",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        }
+                        else {
+                            handleHardcodedLogin(email)
                         }
                     }
                 } catch (e: Exception) {
@@ -114,5 +114,18 @@ class LogIn : Activity() {
         goToSignUpBtn.setOnClickListener {
             startActivity(Intent(this, SignUp::class.java))
         }
+
+    }
+    private fun handleHardcodedLogin(email: String) {
+        // Create session for the hardcoded user
+        val sessionManager = UserSessionManager(this)
+        sessionManager.createLoginSession("Test User", email)
+
+        Toast.makeText(this, "Test login successful!", Toast.LENGTH_SHORT).show()
+
+        // Redirect to Customer Dashboard instead of regular Dashboard
+        val intent = Intent(this, CustomerDashboard::class.java)
+        startActivity(intent)
+        finish()
     }
 }
