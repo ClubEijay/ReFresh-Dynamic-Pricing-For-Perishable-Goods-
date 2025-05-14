@@ -23,30 +23,7 @@ object RetrofitClient {
 
 
     }
-
-    // Cloudinary Client for Image Uploads
-    object CloudinaryClient {
-        private const val BASE_URL = "https://api.cloudinary.com/v1_1/dlnq8eaed/image/upload"
-
-        val api: CloudinaryService by lazy {
-            Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(CloudinaryService::class.java)
-        }
-    }
-
-    interface CloudinaryService {
-        @Multipart
-        @POST
-        suspend fun uploadImage(
-            @Part file: MultipartBody.Part,
-            @Part("upload_preset") preset: RequestBody
-        ): UploadResponse
-    }
-
-    data class UploadResponse(
-        val url: String // URL of the uploaded image from Cloudinary
-    )
 }
+
+
+

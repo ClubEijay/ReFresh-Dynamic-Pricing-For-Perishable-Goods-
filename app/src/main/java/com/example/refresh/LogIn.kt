@@ -14,6 +14,8 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+
 class LogIn : Activity() {
 
     private val TAG = "LogInActivity"
@@ -60,7 +62,7 @@ class LogIn : Activity() {
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             Toast.makeText(this@LogIn, "Login successful!", Toast.LENGTH_SHORT).show()
-                            // Start main activity or dashboard here
+                            startActivity(Intent(this@LogIn, Dashboard::class.java))
                         } else {
                             Toast.makeText(this@LogIn, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show()
                         }
