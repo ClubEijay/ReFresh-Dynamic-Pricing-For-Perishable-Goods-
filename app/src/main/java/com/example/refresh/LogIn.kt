@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.*
 import com.example.refresh.model.LoginRequest
 import com.example.refresh.network.ApiService
+import com.example.refresh.util.UserSessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,10 +25,22 @@ class LogIn : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
 
+
         val emailEditText = findViewById<EditText>(R.id.signinEmail)
         val passwordEditText = findViewById<EditText>(R.id.signinPassword)
         val loginBtn = findViewById<ImageButton>(R.id.signinbtnofficial)
         val goToSignUpBtn = findViewById<ImageButton>(R.id.regSignUpBtn2)
+
+        // Create session manager
+        val sessionManager = UserSessionManager(this)
+
+        // Check if user is already logged in
+        if (sessionManager.isLoggedIn()) {
+            // User is already logged in, redirect to Dashboard
+            val intent = Intent(this@LogIn, Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         // Receive data from SignUp if passed
         val emailFromSignup = intent.getStringExtra("email")
@@ -60,22 +73,44 @@ class LogIn : Activity() {
                     val response = apiService.login(loginRequest)
 
                     withContext(Dispatchers.Main) {
-                        if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        Log.d(TAG, "Login response: $responseBody")
+
+                        if (response.isSuccessful && responseBody != null && responseBody.success == true) {
+                            // Save user data in session manager
+                            sessionManager.createLoginSession(
+                                responseBody.name ?: "User",
+                                email
+                            )
+
                             Toast.makeText(this@LogIn, "Login successful!", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LogIn, Dashboard::class.java))
+
+                            // Create explicit intent to Dashboard
+                            val intent = Intent(this@LogIn, Dashboard::class.java)
+                            startActivity(intent)
+                            finish() // This will close the Login activity
                         } else {
-                            Toast.makeText(this@LogIn, "Login failed: Invalid credentials", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@LogIn,
+                                "Login failed: Invalid credentials",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e(TAG, "Login failed", e)
+                    Log.e(TAG, "Login error", e)
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@LogIn, "Network error: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@LogIn,
+                            "Network error: ${e.localizedMessage}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
         }
 
+        // Make sure this is OUTSIDE the loginBtn click listener
         goToSignUpBtn.setOnClickListener {
             startActivity(Intent(this, SignUp::class.java))
         }

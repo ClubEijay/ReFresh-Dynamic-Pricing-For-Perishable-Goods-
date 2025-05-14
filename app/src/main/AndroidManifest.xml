@@ -41,10 +41,16 @@
             android:name=".SignUp"
             android:exported="false" />
         <activity
+            android:name=".EditProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".LogIn"
             android:exported="false" />
         <activity
             android:name=".GetStartedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePassword"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

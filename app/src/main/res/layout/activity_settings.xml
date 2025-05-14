@@ -83,12 +83,13 @@
 
 
         <ImageButton
+            android:id="@+id/change_password_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/changeset"
+            android:layout_marginLeft="14dp"
             android:layout_marginTop="360dp"
             android:background="@color/trans"
-            android:layout_marginLeft="14dp" />
+            android:src="@drawable/changeset" />
 
         <ImageButton
             android:layout_width="wrap_content"

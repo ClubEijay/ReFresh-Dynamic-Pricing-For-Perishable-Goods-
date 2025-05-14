@@ -50,6 +50,15 @@ class UserSessionManager(context: Context) {
     }
 
     /**
+     * Update user details after profile update
+     */
+    fun updateUserDetails(name: String, email: String) {
+        editor.putString(KEY_NAME, name)
+        editor.putString(KEY_EMAIL, email)
+        editor.commit()
+    }
+
+    /**
      * Check login status
      */
     fun isLoggedIn(): Boolean {

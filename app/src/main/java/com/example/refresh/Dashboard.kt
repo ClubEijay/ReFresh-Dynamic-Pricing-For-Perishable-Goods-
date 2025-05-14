@@ -32,6 +32,7 @@ import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import android.graphics.BitmapFactory
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 
 
@@ -52,19 +53,21 @@ class Dashboard : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
 
         // Initialize the image picker launcher early
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                selectedImageUri = uri
-                // Update the image preview if available
-                currentImagePreview?.setImageURI(uri)
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                if (uri != null) {
+                    selectedImageUri = uri
+                    // Update the image preview if available
+                    currentImagePreview?.setImageURI(uri)
 
-                // Process the image to Base64 right after selection
-                processSelectedImage(uri)
+                    // Process the image to Base64 right after selection
+                    processSelectedImage(uri)
+                }
             }
-        }
 
         sessionManager = UserSessionManager(this)
-        loggedInUserEmail = sessionManager.getUserDetails()[UserSessionManager.KEY_EMAIL] ?: "unknown@example.com"
+        loggedInUserEmail =
+            sessionManager.getUserDetails()[UserSessionManager.KEY_EMAIL] ?: "unknown@example.com"
 
         if (!sessionManager.isLoggedIn()) {
             Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show()
@@ -185,7 +188,11 @@ class Dashboard : AppCompatActivity() {
                 }
 
                 if (selectedImageUri == null) {
-                    Toast.makeText(this, "Please select an image for the product", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Please select an image for the product",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnClickListener
                 }
 
@@ -199,7 +206,10 @@ class Dashboard : AppCompatActivity() {
                     imageBase64 = processedImageBase64
                 )
 
-                Log.d(TAG, "Product created: ${product.name}, has image: ${product.imageBase64 != null}")
+                Log.d(
+                    TAG,
+                    "Product created: ${product.name}, has image: ${product.imageBase64 != null}"
+                )
 
                 // Save the product to database
                 saveProductToDatabase(product)
@@ -234,41 +244,95 @@ class Dashboard : AppCompatActivity() {
             "Aisle 2" -> findViewById<LinearLayout>(R.id.aisle2_container)
             else -> null
         }
+
         container?.let {
-            // Add the image view
+            // Create a LinearLayout to hold the product details and buttons
+            val productLayout = LinearLayout(this)
+            productLayout.orientation = LinearLayout.HORIZONTAL
+            productLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            productLayout.setPadding(8, 8, 8, 8) // Padding around the whole product layout
+
+            // Add the ImageView
             val imageView = ImageView(this)
             imageView.setImageURI(imageUri)
-            imageView.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                400
-            ).apply { setMargins(0, 8, 0, 8) }
+            val imageLayoutParams = LinearLayout.LayoutParams(150, 150)
+            imageLayoutParams.setMargins(0, 0, 16, 0) // Margin between image and text
+            imageView.layoutParams = imageLayoutParams
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            it.addView(imageView)
+            productLayout.addView(imageView)
 
-            // Add the text view
+            // Add TextView for product details (Name, Price, Description)
             val productView = TextView(this)
             productView.text = "${product.name}\nPrice: $${product.price}\n${product.description}"
             productView.setPadding(16, 16, 16, 16)
-            productView.setTextColor(Color.WHITE)
-            productView.setBackgroundColor(Color.parseColor("#2C2C2C"))
+            productView.setTextColor(Color.BLACK) // You can change this to suit your theme
             productView.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+            )
+            productLayout.addView(productView)
+
+            // Create a LinearLayout to hold the Edit and Delete buttons
+            val buttonsLayout = LinearLayout(this)
+            buttonsLayout.orientation = LinearLayout.HORIZONTAL
+            buttonsLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { setMargins(0, 8, 0, 8) }
-            it.addView(productView)
+            )
+            buttonsLayout.setPadding(16, 0, 0, 0) // Padding between product and buttons
+
+            // Create the Edit Button
+            val editButton = Button(this)
+            editButton.text = "Edit"
+            editButton.setOnClickListener {
+                // Handle editing the product (you can show a dialog or navigate to an edit activity)
+                Toast.makeText(this, "Edit clicked for ${product.name}", Toast.LENGTH_SHORT).show()
+            }
+
+            // Create the Delete Button
+            val deleteButton = Button(this)
+            deleteButton.text = "Delete"
+            deleteButton.setOnClickListener {
+                // Handle deleting the product
+                container.removeView(productLayout) // Remove the product from the aisle container
+                // Also delete the product from your database or wherever you're storing it
+                Toast.makeText(this, "Deleted ${product.name}", Toast.LENGTH_SHORT).show()
+            }
+
+            // Add buttons to the button layout
+            buttonsLayout.addView(editButton)
+            buttonsLayout.addView(deleteButton)
+
+            // Add the button layout to the product layout
+            productLayout.addView(buttonsLayout)
+
+            // Add the complete product layout to the aisle container
+            it.addView(productLayout)
         }
     }
+
 
     private fun saveProductToDatabase(product: Product) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                Log.d(TAG, "Saving product to database: ${product.name}, image: ${product.imageBase64?.take(20)}...")
+                Log.d(
+                    TAG,
+                    "Saving product to database: ${product.name}, image: ${
+                        product.imageBase64?.take(20)
+                    }..."
+                )
                 val response = RetrofitClient.api.addProduct(product)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@Dashboard, "Product saved!", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@Dashboard, "Failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@Dashboard,
+                            "Failed: ${response.message()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } catch (e: Exception) {
@@ -278,11 +342,6 @@ class Dashboard : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fetchAndDisplayUserProducts()
     }
 
     private fun fetchAndDisplayUserProducts() {
@@ -301,18 +360,31 @@ class Dashboard : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val products = response.body() ?: emptyList()
                         if (products.isEmpty()) {
-                            Toast.makeText(this@Dashboard, "No products found", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Dashboard, "No products found", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
                             displayProducts(products)
-                            Toast.makeText(this@Dashboard, "${products.size} products loaded", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@Dashboard,
+                                "${products.size} products loaded",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     } else {
-                        Toast.makeText(this@Dashboard, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@Dashboard,
+                            "Error: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@Dashboard, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@Dashboard,
+                        "Network error: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -322,6 +394,7 @@ class Dashboard : AppCompatActivity() {
         val aisle1 = findViewById<LinearLayout>(R.id.aisle1_container)
         val aisle2 = findViewById<LinearLayout>(R.id.aisle2_container)
 
+        // Loop through each product and display them
         for (product in products) {
             val container = when (product.category) {
                 "Aisle 1" -> aisle1
@@ -358,10 +431,60 @@ class Dashboard : AppCompatActivity() {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply { setMargins(0, 8, 0, 8) }
-
                 it.addView(textView)
+
+                // Add the Edit and Delete buttons dynamically
+                val buttonLayout = LinearLayout(this)
+                buttonLayout.orientation = LinearLayout.HORIZONTAL
+                buttonLayout.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+
+                // Add the edit button
+                val editButton = Button(this)
+                editButton.text = "Edit"
+                editButton.setOnClickListener {
+                    // Pass all necessary product data to EditProductActivity
+                    val intent = Intent(this@Dashboard, EditProductActivity::class.java)
+                    intent.putExtra("PRODUCT_ID", product._id)
+                    intent.putExtra("PRODUCT_NAME", product.name)
+                    intent.putExtra("PRODUCT_PRICE", product.price.toString())
+                    intent.putExtra("PRODUCT_DESCRIPTION", product.description)
+                    intent.putExtra("PRODUCT_CATEGORY", product.category)
+                    intent.putExtra("PRODUCT_IMAGE", product.imageBase64)
+                    startActivity(intent)
+                }
+                buttonLayout.addView(editButton)
+
+                // Create the Delete Button
+                val deleteButton = Button(this)
+                deleteButton.text = "Delete"
+                deleteButton.setOnClickListener {
+                    onDeleteProduct(product)  // Pass the product object to handle deletion
+                }
+                buttonLayout.addView(deleteButton)
+
+                // Add the button layout to the container
+                it.addView(buttonLayout)
             }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        fetchAndDisplayUserProducts()
+    }
+
+    fun onEditProduct(product: Product) {
+        // Handle the edit action for the given product
+        Toast.makeText(this, "Edit product: ${product.name}", Toast.LENGTH_SHORT).show()
+        // You can open a new activity or fragment to edit the product's details
+    }
+
+    fun onDeleteProduct(product: Product) {
+        // Handle the delete action for the given product
+        Toast.makeText(this, "Delete product: ${product.name}", Toast.LENGTH_SHORT).show()
+        // You can call your API or local database to delete the product
     }
 
 }
