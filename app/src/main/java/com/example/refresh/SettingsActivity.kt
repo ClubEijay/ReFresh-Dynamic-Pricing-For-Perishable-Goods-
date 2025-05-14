@@ -46,5 +46,12 @@ class SettingsActivity : Activity() {
             val intent = Intent(this, EditProfile::class.java)
             startActivity(intent)
         }
+
+        val changePasswordBtn: ImageButton = findViewById(R.id.change_password_button)
+
+        changePasswordBtn.setOnClickListener {
+            val intent = Intent(this, ChangePassword::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -61,22 +61,6 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
 
-
-
-    // Firebase
-    //implementation(platform("com.google.firebase:firebase-bom:30.0.1"))
-    //implementation("com.google.firebase:firebase-auth")
-    //implementation("com.google.firebase:firebase-auth-ktx")
-    //implementation("com.google.firebase:firebase-analytics")
-
-    // Google Sign-In
-    //implementation("com.google.android.gms:play-services-auth:20.7.0")
-
-    // Identity
-    //implementation("androidx.credentials:credentials:1.5.0")
-    //implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
-    //implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-
     // Glide for image loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
