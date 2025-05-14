@@ -84,7 +84,7 @@ class SignUp : Activity() {
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             Toast.makeText(this@SignUp, "Registration successful!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@SignUp, LogIn::class.java).apply {
+                            val intent = Intent(this@SignUp, BeforeRegister::class.java).apply {
                                 putExtra("email", emailText)
                                 putExtra("password", passText)
                             }
