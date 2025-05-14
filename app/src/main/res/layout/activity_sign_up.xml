@@ -67,7 +67,6 @@
             <EditText
                 android:id="@+id/signupEmail"
                 android:layout_width="300dp"
-                android:textColor="@color/black"
                 android:layout_height="50dp"
                 android:layout_marginTop="440dp"
                 android:textColor="@color/black"
@@ -89,7 +88,6 @@
                 android:id="@+id/signupPassword"
                 android:layout_width="270dp"
                 android:layout_height="50dp"
-                android:textColor="@color/black"
                 android:layout_marginTop="510dp"
                 android:layout_marginLeft="58dp"
                 android:textColor="@color/black"
@@ -120,7 +118,6 @@
                 android:layout_width="270dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="580dp"
-                android:textColor="@color/black"
                 android:layout_marginLeft="58dp"
                 android:textColor="@color/black"
                 android:background="@drawable/rnd_textbox"
