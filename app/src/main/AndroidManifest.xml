@@ -32,12 +32,6 @@
             android:name=".AccountActivity"
             android:exported="false" />
         <activity
-            android:name=".AccountProfile"
-            android:exported="false" />
-        <activity
-            android:name=".AccountPage"
-            android:exported="false" />
-        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
