@@ -32,7 +32,6 @@ import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import android.graphics.BitmapFactory
-import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 
 
@@ -50,7 +49,7 @@ class Dashboard : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
+        setContentView(R.layout.activity_vendor_dashboard)
 
         // Initialize the image picker launcher early
         imagePickerLauncher =

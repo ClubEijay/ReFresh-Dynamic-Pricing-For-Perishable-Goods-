@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="730dp"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/mainbg"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT PRODUCT"
+        android:fontFamily="@font/pbold"
+        android:textSize="30sp"
+        android:textColor="@color/maincolor"
+        android:layout_marginLeft="75dp"/>
 
     <!-- Editable Product Name -->
     <EditText
@@ -35,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Aisle:"
+        android:fontFamily="@font/psemibold"
         android:paddingTop="8dp" />
 
     <RadioGroup
@@ -48,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aisle 1"
+            android:fontFamily="@font/pmedium"
             android:checked="true" />
 
         <RadioButton
@@ -55,33 +67,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aisle 2"
+            android:fontFamily="@font/pmedium"
             android:layout_marginStart="16dp" />
     </RadioGroup>
 
     <!-- Editable Product Image Preview -->
-    <ImageView
-        android:id="@+id/product_image_preview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_launcher_foreground"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="16dp" />
-
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <!-- Button to Select Image -->
-    <Button
+    <ImageButton
         android:id="@+id/btn_select_image"
-        android:layout_width="match_parent"
+        android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:text="Select Image"
-        android:layout_marginTop="8dp"/>
+        android:background="@color/trans"
+        android:src="@drawable/selectimg"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="40dp"/>
 
     <!-- Button to Save/Update Product -->
-    <Button
+    <ImageButton
         android:id="@+id/btn_update_product"
-        android:layout_width="match_parent"
+        android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:text="Update Product"
-        android:layout_marginTop="12dp"/>
+        android:background="@color/trans"
+        android:src="@drawable/updprod"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="37dp"/>
+
+</FrameLayout>
 
 </LinearLayout>
