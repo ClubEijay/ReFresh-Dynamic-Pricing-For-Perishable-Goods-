@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -24,7 +25,18 @@ interface ApiService {
 
     //@GET("/products")
     //suspend fun getUserProductsByQuery(@Query("email") email: String): Response<List<Product>>
-
+    
+    @POST("/simulate-next-day")
+    suspend fun simulateNextDay(): Response<Map<String, String>>
+    
+    @PUT("/approve-price/{productId}")
+    suspend fun approvePrice(@Path("productId") productId: String): Response<Map<String, String>>
+    
+    @PUT("/update-product/{productId}")
+    suspend fun updateProduct(@Path("productId") productId: String, @Body product: Product): Response<Map<String, String>>
+    
+    @GET("/pending-price-changes/{email}")
+    suspend fun getPendingPriceChanges(@Path(value = "email", encoded = true) email: String): Response<List<Product>>
 }
 
 

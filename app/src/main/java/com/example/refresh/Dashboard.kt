@@ -36,6 +36,9 @@ import android.util.Base64
 import java.io.ByteArrayOutputStream
 import android.graphics.BitmapFactory
 import androidx.activity.result.ActivityResultLauncher
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 
@@ -108,6 +111,10 @@ class Dashboard : AppCompatActivity() {
                 R.id.nav_profile -> {
                     Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 }
+                
+                R.id.nav_price_approval -> {
+                    startActivity(Intent(this, PriceApprovalActivity::class.java))
+                }
 
                 R.id.nav_settings -> {
                     val intent = Intent(this, SettingsActivity::class.java)
@@ -137,7 +144,8 @@ class Dashboard : AppCompatActivity() {
             val dialog = android.app.AlertDialog.Builder(this).setView(dialogView).create()
 
             val productName = dialogView.findViewById<EditText>(R.id.edit_product_name)
-            val price = dialogView.findViewById<EditText>(R.id.edit_price)
+            val basePrice = dialogView.findViewById<EditText>(R.id.edit_base_price)
+            val markdownRate = dialogView.findViewById<EditText>(R.id.edit_markdown_rate)
             val expiryDate = dialogView.findViewById<EditText>(R.id.edit_expiry_date)
             val aisleSelector = dialogView.findViewById<RadioGroup>(R.id.aisle_selector)
             val addBtn = dialogView.findViewById<Button>(R.id.btn_add_product)
@@ -167,10 +175,11 @@ class Dashboard : AppCompatActivity() {
 
             addBtn.setOnClickListener {
                 val name = productName.text.toString()
-                val priceVal = price.text.toString()
+                val basePriceVal = basePrice.text.toString()
+                val markdownRateVal = markdownRate.text.toString()
                 val date = expiryDate.text.toString()
 
-                if (name.isBlank() || priceVal.isBlank() || date.isBlank() || aisleSelector.checkedRadioButtonId == -1) {
+                if (name.isBlank() || basePriceVal.isBlank() || date.isBlank() || markdownRateVal.isBlank() || aisleSelector.checkedRadioButtonId == -1) {
                     Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -181,8 +190,10 @@ class Dashboard : AppCompatActivity() {
                     else -> "Unknown"
                 }
 
-                val priceDouble = priceVal.toDoubleOrNull()
-                if (priceDouble == null) {
+                val basePriceDouble = basePriceVal.toDoubleOrNull()
+                val markdownRateDouble = markdownRateVal.toDoubleOrNull()
+                
+                if (basePriceDouble == null || markdownRateDouble == null) {
                     Toast.makeText(this, "Invalid price format", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -192,14 +203,25 @@ class Dashboard : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
+                // Get current date in ISO format
+                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+                val currentDateStr = sdf.format(Date())
+
                 // Create a product with all the data
                 val product = Product(
+                    id = "", // ID will be assigned by the server
                     name = name,
-                    price = priceDouble,
+                    basePrice = basePriceDouble,
+                    markdownRate = markdownRateDouble,
+                    currentPrice = basePriceDouble, // Initially same as base price
+                    dateAdded = currentDateStr,
+                    daysOnShelf = 0,
+                    isPriceApproved = true, // Initial price is approved
                     description = "Exp: $date",
                     category = selectedAisle,
                     userEmail = loggedInUserEmail,
-                    imageBase64 = processedImageBase64
+                    imageBase64 = processedImageBase64,
+                    lastChecked = currentDateStr
                 )
 
                 Log.d(TAG, "Product created: ${product.name}, has image: ${product.imageBase64 != null}")
@@ -250,7 +272,7 @@ class Dashboard : AppCompatActivity() {
 
             // Add the text view
             val productView = TextView(this)
-            productView.text = "${product.name}\nPrice: $${product.price}\n${product.description}"
+            productView.text = "${product.name}\nPrice: $${product.currentPrice}\n${product.description}"
             productView.setPadding(16, 16, 16, 16)
             productView.setTextColor(Color.WHITE)
             productView.setBackgroundColor(Color.parseColor("#2C2C2C"))
@@ -351,9 +373,21 @@ class Dashboard : AppCompatActivity() {
                     }
                 }
 
-                // Add the text view
+                // Add the text view with dynamic pricing info
                 val textView = TextView(this)
-                textView.text = "${product.name}\nPrice: $${product.price}\n${product.description}"
+                val priceInfo = if (product.basePrice > product.currentPrice) {
+                    "Original: $${product.basePrice}\nCurrent: $${product.currentPrice}"
+                } else {
+                    "Price: $${product.currentPrice}"
+                }
+                
+                val daysInfo = if (product.daysOnShelf > 0) {
+                    "\nDays on shelf: ${product.daysOnShelf}"
+                } else {
+                    ""
+                }
+                
+                textView.text = "${product.name}\n${priceInfo}\n${product.description}${daysInfo}"
                 textView.setPadding(16, 16, 16, 16)
                 textView.setTextColor(Color.WHITE)
                 textView.setBackgroundColor(Color.parseColor("#2C2C2C"))

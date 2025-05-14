@@ -4,6 +4,10 @@
         android:icon="@drawable/sales_report_pic"
         android:title="Sales Report" />
     <item
+        android:id="@+id/nav_price_approval"
+        android:icon="@drawable/settings_pic"
+        android:title="Price Approval" />
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/profile_img"
         android:title="Profile" />

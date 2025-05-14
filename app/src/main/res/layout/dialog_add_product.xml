@@ -12,10 +12,17 @@
         android:hint="Product Name" />
 
     <EditText
-        android:id="@+id/edit_price"
+        android:id="@+id/edit_base_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
+        android:hint="Base Price"
+        android:inputType="numberDecimal" />
+        
+    <EditText
+        android:id="@+id/edit_markdown_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Markdown Rate ($ per day)"
         android:inputType="numberDecimal" />
 
     <EditText
