@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.widget.*
 import android.util.Log
+import android.widget.*
 import com.example.refresh.model.User
 import com.example.refresh.network.ApiService
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 class SignUp : Activity() {
 
@@ -34,35 +33,26 @@ class SignUp : Activity() {
         val showConfirmPassword = findViewById<CheckBox>(R.id.signupShowConfirmPassword)
         val passwordStrengthText = findViewById<TextView>(R.id.passwordStrengthText)
 
-
-        // Set up password visibility toggle
         showPassword.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // Show password
-                password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            password.transformationMethod = if (isChecked) {
+                HideReturnsTransformationMethod.getInstance()
             } else {
-                // Hide password
-                password.transformationMethod = PasswordTransformationMethod.getInstance()
+                PasswordTransformationMethod.getInstance()
             }
-            // Maintain cursor position
             password.setSelection(password.text.length)
         }
 
-        // Set up confirm password visibility toggle
         showConfirmPassword.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // Show password
-                confirmPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            confirmPass.transformationMethod = if (isChecked) {
+                HideReturnsTransformationMethod.getInstance()
             } else {
-                // Hide password
-                confirmPass.transformationMethod = PasswordTransformationMethod.getInstance()
+                PasswordTransformationMethod.getInstance()
             }
-            // Maintain cursor position
             confirmPass.setSelection(confirmPass.text.length)
         }
-        // Retrofit instance
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")  // Use this if running Android emulator
+            .baseUrl("http://10.0.2.2:5000/") // Emulator localhost
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -94,7 +84,11 @@ class SignUp : Activity() {
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             Toast.makeText(this@SignUp, "Registration successful!", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@SignUp, LogIn::class.java))
+                            val intent = Intent(this@SignUp, LogIn::class.java).apply {
+                                putExtra("email", emailText)
+                                putExtra("password", passText)
+                            }
+                            startActivity(intent)
                             finish()
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: "Unknown error"
