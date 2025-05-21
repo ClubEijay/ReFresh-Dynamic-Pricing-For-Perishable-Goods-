@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
-    <!-- Main Content Area -->
+
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:background="@color/mainbg">
 
-        <!-- Top Bar with Nav and Notification Buttons -->
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:contentDescription="Notifications" />
         </RelativeLayout>
 
-        <!-- Content Area with ScrollView -->
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Aisle 1 -->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                     android:orientation="vertical"
                     android:paddingBottom="12dp" />
 
-                <!-- Aisle 2 -->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,7 +86,9 @@
                     android:orientation="vertical"
                     android:paddingBottom="12dp" />
             </LinearLayout>
+
         </ScrollView>
+
 
         <!-- Floating Action Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -97,9 +99,52 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
             android:contentDescription="Add Product" />
+        <!-- Bottom Navigation Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@color/maincolor">
+
+            <ImageButton
+                android:id="@+id/home_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/home"
+                android:background="@color/trans"
+                android:contentDescription="Home" />
+
+            <ImageButton
+                android:id="@+id/cart_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cart"
+                android:background="@color/trans"
+                android:contentDescription="Cart" />
+
+            <ImageButton
+                android:id="@+id/favorites_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/favorites"
+                android:background="@color/trans"
+                android:contentDescription="Favorites" />
+
+            <ImageButton
+                android:id="@+id/account_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/account"
+                android:background="@color/trans"
+                android:contentDescription="Account" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

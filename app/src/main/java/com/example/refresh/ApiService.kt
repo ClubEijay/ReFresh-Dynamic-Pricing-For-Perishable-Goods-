@@ -1,5 +1,8 @@
 package com.example.refresh.network
 
+import com.example.refresh.CartItemRequest
+import com.example.refresh.CartResponse
+import com.example.refresh.Order
 import com.example.refresh.ProductsDebugResponse
 import com.example.refresh.model.LoginRequest
 import com.example.refresh.model.LoginResponse
@@ -46,6 +49,19 @@ interface ApiService {
     @DELETE("/delete-product/{productId}")
     suspend fun deleteProduct(@Path("productId") productId: String): Response<Map<String, String>>
 
+
+    @POST("/add-to-cart")
+    suspend fun addToCart(@Body cartItem: CartItemRequest): Response<Map<String, String>>
+
+    @GET("/cart")
+    suspend fun getCart(@Query("email") email: String): Response<CartResponse>
+
+    @DELETE("/cart/{id}")
+    suspend fun removeFromCart(@Path("id") cartItemId: String): Response<Map<String, String>>
+
+    // Fixed endpoint to match server implementation
+    @POST("/orders")
+    suspend fun createOrder(@Body order: Order): Response<Map<String, String>>
 
 }
 

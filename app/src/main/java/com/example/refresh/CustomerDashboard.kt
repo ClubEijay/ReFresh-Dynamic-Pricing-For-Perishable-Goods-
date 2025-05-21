@@ -6,16 +6,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.refresh.model.Product
 import com.example.refresh.network.RetrofitClient
+import com.example.refresh.util.CartManager
 import com.example.refresh.util.UserSessionManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +24,7 @@ class CustomerDashboard : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: UserSessionManager
+    private lateinit var cartManager: CartManager
     private val TAG = "CustomerDashboardActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +32,7 @@ class CustomerDashboard : AppCompatActivity() {
         setContentView(R.layout.activity_customer_dashboard)
 
         sessionManager = UserSessionManager(this)
+        cartManager = CartManager(this)
 
         if (!sessionManager.isLoggedIn()) {
             Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show()
@@ -45,12 +44,17 @@ class CustomerDashboard : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayout)
         val navBtn: ImageButton = findViewById(R.id.navbtn)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
+        val cartButton: ImageButton = findViewById(R.id.cart_btn)
 
         navBtn.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        // Set up navigation drawer header
+        cartButton.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
         val headerView = navigationView.getHeaderView(0)
         val nameTextView: TextView = headerView.findViewById(R.id.profile_name)
         val emailTextView: TextView = headerView.findViewById(R.id.profile_email)
@@ -66,15 +70,13 @@ class CustomerDashboard : AppCompatActivity() {
         emailTextView.text = email
         profileImageView.setImageResource(R.drawable.profile_img)
 
-        // Set up navigation drawer item clicks
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
                     Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 }
                 R.id.nav_settings -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 R.id.nav_logout -> {
                     sessionManager.logoutUser()
@@ -89,7 +91,6 @@ class CustomerDashboard : AppCompatActivity() {
             true
         }
 
-        // Fetch all products to display
         fetchAndDisplayAllProducts()
     }
 
@@ -101,55 +102,27 @@ class CustomerDashboard : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Use the debug endpoint which requires no parameters
                 val response = RetrofitClient.api.getAllProductsDebug()
-
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        // Handle successful response
                         val debugResponse = response.body()
                         if (debugResponse != null && debugResponse.products != null) {
                             val products = debugResponse.products
                             if (products.isEmpty()) {
-                                Toast.makeText(this@CustomerDashboard, "No products found", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(this@CustomerDashboard, "No products found", Toast.LENGTH_SHORT).show()
                             } else {
                                 displayProducts(products)
-                                Toast.makeText(
-                                    this@CustomerDashboard,
-                                    "${products.size} products loaded",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         } else {
-                            Toast.makeText(
-                                this@CustomerDashboard,
-                                "No products data found in response",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@CustomerDashboard, "No products data found", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        // Handle error response
-                        Toast.makeText(
-                            this@CustomerDashboard,
-                            "Error: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        // Fallback to get all products with empty email parameter
                         fetchProductsWithEmptyEmail()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.e(TAG, "Error fetching products: ${e.message}", e)
-                    Toast.makeText(
-                        this@CustomerDashboard,
-                        "Network error: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    // Try fallback method
                     fetchProductsWithEmptyEmail()
                 }
             }
@@ -159,38 +132,18 @@ class CustomerDashboard : AppCompatActivity() {
     private fun fetchProductsWithEmptyEmail() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Try the query parameter method with empty email
                 val response = RetrofitClient.api.getAllProducts("")
-
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val products = response.body() ?: emptyList()
-                        if (products.isEmpty()) {
-                            Toast.makeText(this@CustomerDashboard, "No products found", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            displayProducts(products)
-                            Toast.makeText(
-                                this@CustomerDashboard,
-                                "${products.size} products loaded",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                        displayProducts(products)
                     } else {
-                        Toast.makeText(
-                            this@CustomerDashboard,
-                            "Fallback also failed: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@CustomerDashboard, "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@CustomerDashboard,
-                        "Fallback network error: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@CustomerDashboard, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -200,7 +153,6 @@ class CustomerDashboard : AppCompatActivity() {
         val aisle1 = findViewById<LinearLayout>(R.id.aisle1_container)
         val aisle2 = findViewById<LinearLayout>(R.id.aisle2_container)
 
-        // Loop through each product and display them
         for (product in products) {
             val container = when (product.category) {
                 "Aisle 1" -> aisle1
@@ -209,17 +161,16 @@ class CustomerDashboard : AppCompatActivity() {
             }
 
             container?.let {
-                // Create a product card layout
                 val productCard = LinearLayout(this)
                 productCard.orientation = LinearLayout.VERTICAL
+                productCard.setBackgroundColor(Color.parseColor("#222222"))
+                productCard.setPadding(0, 0, 0, 16)
                 productCard.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply { setMargins(0, 16, 0, 16) }
-                productCard.setBackgroundColor(Color.parseColor("#222222"))
-                productCard.setPadding(0, 0, 0, 16)
 
-                // Add the image view if there's an image available
+                // Product Image
                 product.imageBase64?.let { base64 ->
                     try {
                         val imageView = ImageView(this)
@@ -237,66 +188,72 @@ class CustomerDashboard : AppCompatActivity() {
                     }
                 }
 
-                // Add the product details
+                // Product Info
                 val productInfo = LinearLayout(this)
                 productInfo.orientation = LinearLayout.VERTICAL
-                productInfo.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
                 productInfo.setPadding(16, 16, 16, 16)
 
-                // Product name
-                val nameTextView = TextView(this)
-                nameTextView.text = product.name
-                nameTextView.textSize = 18f
-                nameTextView.setTextColor(Color.WHITE)
-                nameTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { setMargins(0, 0, 0, 8) }
+                // Fix: Display product name instead of toString()
+                val nameTextView = TextView(this).apply {
+                    text = product.name
+                    textSize = 18f
+                    setTextColor(Color.WHITE)
+                }
+                val priceTextView = TextView(this).apply {
+                    // Format price correctly without scientific notation
+                    text = "Price: $${String.format("%.2f", product.price)}"
+                    textSize = 16f
+                    setTextColor(Color.WHITE)
+                }
+                val descTextView = TextView(this).apply {
+                    text = product.description
+                    textSize = 14f
+                    setTextColor(Color.LTGRAY)
+                }
+                val vendorTextView = TextView(this).apply {
+                    text = "Vendor: ${product.userEmail}"
+                    textSize = 12f
+                    setTextColor(Color.GRAY)
+                }
+
+                val addToCartBtn = Button(this).apply {
+                    text = "Add to Cart"
+                    setBackgroundColor(Color.parseColor("#FF9800"))
+                    setTextColor(Color.WHITE)
+                    setOnClickListener {
+                        addToCart(product)
+                    }
+                }
+
                 productInfo.addView(nameTextView)
-
-                // Product price
-                val priceTextView = TextView(this)
-                priceTextView.text = "Price: $${product.price}"
-                priceTextView.textSize = 16f
-                priceTextView.setTextColor(Color.WHITE)
-                priceTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { setMargins(0, 0, 0, 8) }
                 productInfo.addView(priceTextView)
-
-                // Product description (expiry date)
-                val descTextView = TextView(this)
-                descTextView.text = product.description
-                descTextView.textSize = 14f
-                descTextView.setTextColor(Color.LTGRAY)
-                descTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
                 productInfo.addView(descTextView)
-
-                // Add "Added by Vendor" info
-                val vendorTextView = TextView(this)
-                vendorTextView.text = "Vendor: ${product.userEmail}"
-                vendorTextView.textSize = 12f
-                vendorTextView.setTextColor(Color.GRAY)
-                vendorTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { setMargins(0, 8, 0, 0) }
                 productInfo.addView(vendorTextView)
+                productInfo.addView(addToCartBtn)
 
-                // Add all views to the product card
                 productCard.addView(productInfo)
-
-                // Add the product card to the container
                 it.addView(productCard)
             }
         }
+    }
+
+    private fun addToCart(product: Product) {
+        // Add the product to cart using CartManager
+        cartManager.addToCart(product)
+
+        // Show a notification
+        Toast.makeText(this, "${product.name} added to cart!", Toast.LENGTH_SHORT).show()
+
+        // Optional: Update cart badge or counter if you have one
+        updateCartBadge()
+    }
+
+    private fun updateCartBadge() {
+        // If you have a cart badge/counter, update it here
+        // For example:
+        // val cartSize = cartManager.getCartItems().size
+        // cartBadgeTextView.text = if (cartSize > 0) cartSize.toString() else ""
+        // cartBadgeTextView.visibility = if (cartSize > 0) View.VISIBLE else View.GONE
     }
 
     override fun onResume() {

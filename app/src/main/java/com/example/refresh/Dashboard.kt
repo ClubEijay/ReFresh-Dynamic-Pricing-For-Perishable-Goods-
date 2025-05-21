@@ -196,7 +196,7 @@ class Dashboard : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                // Create a product with all the data
+                // create a product with all the data
                 val product = Product(
                     name = name,
                     price = priceDouble,
@@ -211,10 +211,10 @@ class Dashboard : AppCompatActivity() {
                     "Product created: ${product.name}, has image: ${product.imageBase64 != null}"
                 )
 
-                // Save the product to database
+                // save the product to database
                 saveProductToDatabase(product)
 
-                // Also display it locally
+                //  display it locally
                 dialog.dismiss()
                 fetchAndDisplayUserProducts()
             }
